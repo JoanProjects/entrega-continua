@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Hello, World! Esta es la practica de Entrega Continua.'
+    return 'Hello, World! Esta es la practica de Entrega Continua...'
 
 if __name__ == '__main__':
     # Binds to all network interfaces, which is necessary for Docker
