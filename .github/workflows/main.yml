@@ -23,3 +23,15 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/entrega-continua:latest
+
+  deploy-to-render:
+    # This job will only run after the 'build-and-push' job is successful
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger deployment on Render
+        run: |
+          curl -X POST \
+            "https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys" \
+            -H "Accept: application/json" \
+            -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}"

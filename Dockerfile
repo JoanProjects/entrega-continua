@@ -13,8 +13,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the application code
 COPY . .
 
-# Expose the port the app runs on
+# Expose the port (for documentation purposes, Render manages the actual port)
 EXPOSE 5000
 
-# Command to run the application
-CMD ["python3", "app.py"]
+# Command to run the application using Gunicorn.
+# This binds to the PORT environment variable provided by Render.
+CMD ["gunicorn", "--bind", "0.0.0.0:${PORT}", "app:app"]
